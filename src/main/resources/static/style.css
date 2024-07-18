@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Login Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
-<!--    <link href="../static/style.css" rel="stylesheet">-->
-    <style>
+<style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
         * {
             margin: 0;
@@ -95,32 +87,3 @@
             }
         }
     </style>
-</head>
-<body>
-<div th:replace="~{base_layout :: header}"></div>
-    <div class="wrapper">
-        <div class="logo">
-            <img src="https://scontent.fktm8-1.fna.fbcdn.net/v/t39.30808-6/420437580_3449024565244370_930173484698040864_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=94e2a3&_nc_ohc=6irVsGq_BiIQ7kNvgE9NZ4d&_nc_ht=scontent.fktm8-1.fna&oh=00_AYAE8znxJ_mnfoCGKywbxcfsWhFQ55C6k_7HBqh3kOCMkQ&oe=669C3A04" alt="Logo">
-        </div>
-        <div class="text-center mt-4 name">
-            Twitter
-        </div>
-        <form class="p-3 mt-3">
-            <div class="form-field d-flex align-items-center">
-                <span class="far fa-user"></span>
-                <input type="text" name="userName" id="userName" placeholder="Username">
-            </div>
-            <div class="form-field d-flex align-items-center">
-                <span class="fas fa-key"></span>
-                <input type="password" name="password" id="pwd" placeholder="Password">
-            </div>
-            <button class="btn mt-3">Login</button>
-        </form>
-        <div class="text-center fs-6">
-            <a href="#">Forget password?</a>
-        </div>
-    </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://use.fontawesome.com/releases/v5.7.2/css/all.css"></script>
-</body>
-</html>
