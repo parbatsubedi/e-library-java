@@ -14,7 +14,7 @@ public class User {
     @Column(nullable = false)
     private String name;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = true)
     private String email;
 
     @Column(unique = true, nullable = false, name = "mobile_no")
@@ -23,8 +23,11 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(name = "remember_token")
-    private String rememberToken;
+    private String role;
+
+
+//    @Column(name = "remember_token")
+//    private String rememberToken;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -56,6 +59,14 @@ public class User {
         return email;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -76,13 +87,14 @@ public class User {
         this.password = password;
     }
 
-    public String getRememberToken() {
-        return rememberToken;
-    }
+//    public String getRememberToken() {
+//        return rememberToken;
+//    }
+//
+//    public void setRememberToken(String rememberToken) {
+//        this.rememberToken = rememberToken;
+//    }
 
-    public void setRememberToken(String rememberToken) {
-        this.rememberToken = rememberToken;
-    }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
