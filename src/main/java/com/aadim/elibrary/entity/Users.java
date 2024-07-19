@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,8 +17,8 @@ public class User {
     @Column(unique = true, nullable = true)
     private String email;
 
-    @Column(unique = true, nullable = false, name = "mobile_no")
-    private String mobileNo;
+    @Column(unique = true, nullable = false, name = "phone")
+    private String phone;
 
     @Column(nullable = false)
     private String password;
@@ -71,12 +71,12 @@ public class User {
         this.email = email;
     }
 
-    public String getMobileNo() {
-        return mobileNo;
+    public String getPhoneNo() {
+        return phone;
     }
 
-    public void setMobileNo(String mobileNo) {
-        this.mobileNo = mobileNo;
+    public void setPhoneNo(String PhoneNo) {
+        this.phone = phone;
     }
 
     public String getPassword() {
