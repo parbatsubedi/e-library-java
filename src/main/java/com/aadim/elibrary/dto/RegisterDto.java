@@ -12,6 +12,7 @@ public class RegisterDto {
     @Email
     private String email;
 
+    @NotEmpty(message = "Phone number is required")
     private String phone;
 
     private String address;
@@ -21,11 +22,21 @@ public class RegisterDto {
 
     private String confirmPassword;
 
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public String getName() {
         return name;
     }
 
-    public void setName(String firstName) {
+    public void setName(String name) {
         this.name = name;
     }
 

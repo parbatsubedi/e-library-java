@@ -15,10 +15,13 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class AuthController {
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
     @Autowired
     private UserRepository userRepository;
 
@@ -29,26 +32,29 @@ public class AuthController {
     }
 
     @GetMapping("/register")
-    public String register(Model model, HttpServletRequest request)
-    {
+    public String register(Model model, HttpServletRequest request) {
         System.out.println("register page loaded");
         CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
         System.out.println("CSRF Token: " + csrfToken.getToken());
         RegisterDto registerDto = new RegisterDto();
-        model.addAttribute(registerDto);
+        model.addAttribute("registerDto", registerDto);
         model.addAttribute("success", false);
+        model.addAttribute("_csrf", csrfToken);
         return "register";
     }
-
     @PostMapping("/register")
     public String register(
             Model model,
             @Valid @ModelAttribute RegisterDto registerDto,
             BindingResult result) {
 
-        System.out.println("register Post form loaded");
+        if (result.hasErrors()) {
+            logger.error("Form has errors: {}", result.getAllErrors());
+            return "register";
+        }
 
         if(!registerDto.getPassword().equals(registerDto.getConfirmPassword())) {
+            logger.error("Password and Confirm Password do not match");
             result.addError(
                     new FieldError("registerDto", "confirmpassword",
                             "Password And Confirm Password Doesnot Match !")
@@ -67,8 +73,8 @@ public class AuthController {
         {
             return "register";
         }
-
         try {
+            logger.info("Phone number received is {}", registerDto.getPhone());
             //create users
             var passwordEncoder = new BCryptPasswordEncoder();
             Users newUser = new Users();
@@ -76,9 +82,14 @@ public class AuthController {
             newUser.setEmail(registerDto.getEmail());
             newUser.setPhoneNo(registerDto.getPhone());
             newUser.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+            newUser.setRole(registerDto.getRole());
 //            newUser.setA(registerDto.getAddress());
 
             userRepository.save(newUser);
+            logger.info("User saved successfully");
+
+            System.out.println("register Post form SAVED");
+
 
             model.addAttribute("registerDto", new RegisterDto());
             model.addAttribute("success", true);
@@ -90,7 +101,7 @@ public class AuthController {
                     new FieldError("registerDto", "name",exception.getMessage())
                     ));
         }
-        return "register";
+        return "redirect:/register?success";
     }
 
     @GetMapping("/")
